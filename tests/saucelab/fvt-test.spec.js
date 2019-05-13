@@ -61,7 +61,7 @@
       });
     });
 
-    it("Enter zip code and check output - 1", function(done) {
+    it("Enter town name and check output - 1", function(done) {
       driver.findElement(webdriver.By.id('zip1')).sendKeys('Wellington');
       driver.findElement(webdriver.By.id('zip1city')).getText().then(function(text) {
         assert.equal(text, ' Wellington');
@@ -69,7 +69,7 @@
       });
     });
 
-    it("Enter zip code and check output - 2", function(done) {
+    it("Enter town name and check output - 2", function(done) {
       driver.findElement(webdriver.By.id('zip4')).sendKeys('Auckland');
       driver.findElement(webdriver.By.id('zip4city')).getText().then(function(text) {
         assert.equal(text, ' Auckland');
