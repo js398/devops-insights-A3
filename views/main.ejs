@@ -9,11 +9,14 @@
         <script src="/bower_components/angular/angular.js"></script>
         <script src="/bower_components/angular-route/angular-route.js"></script>
         <script src="/js/controllers.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMvTvZmqT5GP68XdMMGzQ3G5ccNVnNKA8&callback=initMap"></script>
+
     </head>
 
     <body>
         <div float="left">
             <% include includes/mainbody %>
+            <div id="map"></div>
         </div>
     </body>
 
@@ -21,6 +24,17 @@
          angular.element(document).ready(function() {
             angular.bootstrap(document, ['ConsoleModule']);
         });
+        
+        function initMap() {
+  // The location of Uluru
+  var uluru = {lat: -25.344, lng: 131.036};
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map});
+}
+
     </script>
 
 </html>
