@@ -17,7 +17,7 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
     $scope.zip1City = "";
     $scope.zip1Weather = "";
 
-    $scope.zip = function(which) {
+    $scope.zip = function(which,$event) {
 
         var data = "";
         if(which === 1) {
@@ -29,8 +29,8 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
         } else if(which === 4) {
             data = $scope.zip4m;
         } 
-
-        if(data.length === 5) {
+		var keyCode = $event.which || $event.keyCode;
+        if(keyCode === 13) {
             $http({
                 method: "GET",
                 url: '/api/v1/getWeather?zip=' + data
