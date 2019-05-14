@@ -35,10 +35,8 @@
   			marker4=new google.maps.Marker({position: uluru, map: map});
   			map.addListener('click', function(e) {	
     			//alert( "Latitude: "+e.latLng.lat()+" "+", longitude: "+e.latLng.lng() );
-    			$http({
-                	method: "GET",
-                	url: '/api/v1/getWeather2?lat='+e.latLng.lat()+'&lng='+e.latLng.lng()
-            	}).then( function(response) {
+    			fetch('/api/v1/getWeather2?lat='+e.latLng.lat()+'&lng='+e.latLng.lng())
+    			.then( function(response) {
             		alert(response.data.city+response.data.weather);
             	});
  			});
