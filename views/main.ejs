@@ -37,13 +37,11 @@
     			fetch('/api/v1/getWeather2?lat='+e.latLng.lat()+'&lon='+e.latLng.lng())
     			.then(function(response){
     				if(response.status==200){
-    					response=>response.json();
+    					var json = response.json();
+    					alert(json.city+json.weather);
 					}
-    				})
-    			.then(function(json) {
-            		alert(json.city+json.weather);
-            	});
- 			});
+    				});
+   			});
 		}
     </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMvTvZmqT5GP68XdMMGzQ3G5ccNVnNKA8&callback=initMap"></script>
