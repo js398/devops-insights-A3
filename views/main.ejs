@@ -36,8 +36,9 @@
   			map.addListener('click', function(e) {	
     			//alert( "Latitude: "+e.latLng.lat()+" "+", longitude: "+e.latLng.lng() );
     			fetch('/api/v1/getWeather2?lat='+e.latLng.lat()+'&lon='+e.latLng.lng())
-    			.then( function(response) {
-            		alert(response.data.city+response.data.weather);
+    			.then(response=>response.json())
+    			.then(function(json) {
+            		alert(json.data.city+json.data.weather);
             	});
  			});
 		}
