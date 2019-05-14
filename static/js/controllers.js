@@ -5,18 +5,6 @@ var marker1;
 var marker2;
 var marker3;
 var marker4;
-function init() {
-  // The location of Uluru
-  var ul = {lat: -41.29, lng: 174.78};
-  // The map, centered at Uluru
-  map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 5, center: ul});
-  marker1=new google.maps.Marker({position: uluru, map: map});
-  marker2=new google.maps.Marker({position: uluru, map: map});
-  marker3=new google.maps.Marker({position: uluru, map: map});
-  marker4=new google.maps.Marker({position: uluru, map: map});
-}
-
 
 var ConsoleModule = angular.module('ConsoleModule', ['ngRoute']);
 
