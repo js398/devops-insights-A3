@@ -24,16 +24,25 @@
         });
         
         function initMap() {
-  // The location of Uluru
-  var ul = {lat: -41.29, lng: 174.78};
-  // The map, centered at Uluru
-  map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 5, center: ul});
-  marker1=new google.maps.Marker({position: uluru, map: map});
-  marker2=new google.maps.Marker({position: uluru, map: map});
-  marker3=new google.maps.Marker({position: uluru, map: map});
-  marker4=new google.maps.Marker({position: uluru, map: map});
-}
+  			// The location of Uluru
+  			var ul = {lat: -41.29, lng: 174.78};
+  			// The map, centered at Uluru
+ 			 map = new google.maps.Map(
+      		document.getElementById('map'), {zoom: 5, center: ul});
+  			marker1=new google.maps.Marker({position: uluru, map: map});
+			marker2=new google.maps.Marker({position: uluru, map: map});
+			marker3=new google.maps.Marker({position: uluru, map: map});
+  			marker4=new google.maps.Marker({position: uluru, map: map});
+  			map.addListener('click', function(e) {	
+    			//alert( "Latitude: "+e.latLng.lat()+" "+", longitude: "+e.latLng.lng() );
+    			$http({
+                	method: "GET",
+                	url: '/api/v1/getWeather2?lat='+e.latLng.lat()+'&lng='+e.latLng.lng()
+            	}).then( function(response) {
+            		alert(response.data.city+response.data.weather);
+            	});
+ 			});
+		}
     </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMvTvZmqT5GP68XdMMGzQ3G5ccNVnNKA8&callback=initMap"></script>
 </html>
