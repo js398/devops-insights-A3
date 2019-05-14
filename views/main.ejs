@@ -34,9 +34,12 @@
 			marker3=new google.maps.Marker({position: uluru, map: map});
   			marker4=new google.maps.Marker({position: uluru, map: map});
   			map.addListener('click', function(e) {	
-    			//alert( "Latitude: "+e.latLng.lat()+" "+", longitude: "+e.latLng.lng() );
     			fetch('/api/v1/getWeather2?lat='+e.latLng.lat()+'&lon='+e.latLng.lng())
-    			.then(response=>response.json())
+    			.then(function(response){
+    				if(response.status==200){
+    					response=>response.json();
+					}
+    				})
     			.then(function(json) {
             		alert(json.city+json.weather);
             	});

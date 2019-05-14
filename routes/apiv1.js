@@ -61,7 +61,7 @@ exports.getWeather2 = function(req, res) {
     		res.status(400).send('Failed to get the data');
     		//console.error("Failed to send request to openweathermap.org", err);
     	} else {
-    		if(body.cod === 200) {
+    		if(body.cod === 200&&body.sys.country==="NZ") {
     			var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' C';
     			var response = {city: body.name, weather: weath};
     			return res.status(200).send(response);
