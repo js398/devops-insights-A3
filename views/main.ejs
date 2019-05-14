@@ -38,7 +38,7 @@
     			fetch('/api/v1/getWeather2?lat='+e.latLng.lat()+'&lon='+e.latLng.lng())
     			.then(response=>response.json())
     			.then(function(json) {
-            		alert(json.data.city+json.data.weather);
+            		alert(json.city+json.weather);
             	});
  			});
 		}
