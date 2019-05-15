@@ -49,12 +49,6 @@
     				city = json.city; 
   				});
   				
-  				fetch(/api/v1/getWeather?zip=' + city)
-    				.then(response=>response.json())
-    				.then(function(json){
-    					uluru = new google.maps.LatLng(json.lat, json.lon);
-   						marker5.setPosition(uluru);
-    				});
    			});
 		}
     </script>
