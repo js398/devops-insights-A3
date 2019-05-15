@@ -29,11 +29,11 @@
   			// The map, centered at Uluru
  			 map = new google.maps.Map(
       		document.getElementById('map'), {zoom: 5, center: ul});
-  			marker1=new google.maps.Marker({position: uluru, map: map});
-			marker2=new google.maps.Marker({position: uluru, map: map});
-			marker3=new google.maps.Marker({position: uluru, map: map});
-  			marker4=new google.maps.Marker({position: uluru, map: map});
-  			marker5=new google.maps.Marker({position: uluru, map: map});
+  			marker1=new google.maps.Marker();
+			marker2=new google.maps.Marker();
+			marker3=new google.maps.Marker();
+  			marker4=new google.maps.Marker();
+  			marker5=new google.maps.Marker();
   			infowindow = new google.maps.InfoWindow();
   			var weather;
   			var city;
@@ -45,7 +45,6 @@
 					}
     			})
     			.then(function(json) {
-    				alert(json.city+json.weather);
     				weather = json.weather; 
     				city = json.city; 
   				})
