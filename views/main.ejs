@@ -49,6 +49,18 @@
     				city = json.city; 
   				});
   				
+  				fetch('/api/v1/getWeather?zip='+city)
+    			.then(function(response){
+    				if(response.status==200){
+    					return response.json();			
+					}
+    			})
+    			.then(function(json) {
+    				var loca = new google.maps.LatLng(json.lat, json.lon);
+   					marker2.setPosition(loca);
+  				});
+  				
+  				
    			});
 		}
     </script>
