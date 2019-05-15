@@ -34,6 +34,7 @@
 			marker3=new google.maps.Marker({position: uluru, map: map});
   			marker4=new google.maps.Marker({position: uluru, map: map});
   			marker5=new google.maps.Marker({position: uluru, map: map});
+  			infowindow = new google.maps.InfoWindow();
   			var weather;
   			var city;
   			map.addListener('click', function(e) {
@@ -61,11 +62,12 @@
    					var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">'+city+'</h1>'+
+            '<h3 id="firstHeading" class="firstHeading">'+city+'</h3>'+
             '<div id="bodyContent">'+
             '<p>'+weather+'</p>'+
             '</div>'+
             '</div>';
+            infowindow.close();
             infowindow = new google.maps.InfoWindow({
           		content: contentString
       	  	});
