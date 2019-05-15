@@ -34,8 +34,9 @@
 			marker3=new google.maps.Marker({position: uluru, map: map});
   			marker4=new google.maps.Marker({position: uluru, map: map});
   			marker5=new google.maps.Marker({position: uluru, map: map});
-  			var weather;
-  			map.addListener('click', function(e) {	
+  			map.addListener('click', function(e) {
+  				var weather;
+  				var city;
     			fetch('/api/v1/getWeather2?lat='+e.latLng.lat()+'&lon='+e.latLng.lng())
     			.then(function(response){
     				if(response.status==200){
@@ -44,14 +45,16 @@
     			})
     			.then(function(json) {
     				alert(json.city+json.weather);
-    				weather = json.weather;
-    				fetch(/api/v1/getWeather?zip=' + json.city)
+    				weather = json.weather; 
+    				city = json.city; 
+  				});
+  				
+  				fetch(/api/v1/getWeather?zip=' + city)
     				.then(response=>response.json())
-    				.then(function(js){
-    					uluru = new google.maps.LatLng(js.lat, js.lon);
+    				.then(function(json){
+    					uluru = new google.maps.LatLng(json.lat, json.lon);
    						marker5.setPosition(uluru);
     				});
-  				});
    			});
 		}
     </script>
