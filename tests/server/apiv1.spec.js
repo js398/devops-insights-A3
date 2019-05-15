@@ -120,10 +120,22 @@
   
   describe('Get Weather 2', function() {
 
-    it('with without lat/lon data', function() {
+    it('with without lat data', function() {
       reqMock = {
         query: {
+			lon: 174.78
+        }
+      };
 
+      apiv1.getWeather2(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(400), 'Unexpected status code:' + resMock.status.lastCall.args);
+    });
+    
+    it('with without lon data', function() {
+      reqMock = {
+        query: {
+			lat: -41.29
         }
       };
 
