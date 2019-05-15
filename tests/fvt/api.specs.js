@@ -83,7 +83,7 @@
         }
         request({
       		method: 'GET',
-              url: appUrl + '/api/v1/getWeather?lat=-41.29&lon=174.78'
+              url: appUrl + '/api/v1/getWeather2?lat=-41.29&lon=174.78'
           }, function(err, resp, body) {
           	if(err) {
           		assert.fail('Failed to get the response');
@@ -103,7 +103,7 @@
         }
         request({
       		method: 'GET',
-              url: appUrl + '/api/v1/getWeather'
+              url: appUrl + '/api/v1/getWeather2'
           }, /* @callback */ function(err, resp, body) {
           	if(err) {
           		assert.fail('Failed to get the response');
@@ -121,7 +121,7 @@
         }
         request({
       		method: 'GET',
-              url: appUrl + '/api/v1/getWeather?lat=-36.868372&lon=174.754743'
+              url: appUrl + '/api/v1/getWeather2?lat=-36.868372&lon=174.754743'
           }, function(err, resp, body) {
           	if(err) {
           		assert.fail('Failed to get the response');
