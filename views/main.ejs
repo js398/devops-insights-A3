@@ -37,6 +37,9 @@
   			infowindow = new google.maps.InfoWindow();
   			var weather;
   			var city;
+  			marker5.addListener('click', function() {
+          		infowindow.open(map, marker5);
+        	});
   			map.addListener('click', function(e) {
     			fetch('/api/v1/getWeather2?lat='+e.latLng.lat()+'&lon='+e.latLng.lng())
     			.then(function(response){
