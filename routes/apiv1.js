@@ -77,7 +77,63 @@ router.get('/getWeather2', exports.getWeather2);
 
 
 
+exports.getData = function(req, res) {
+	var col = req.query.col;
+	var item = req.query.item;
+	var value = req.query.value;
+	
+	if( (col === null) || (typeof(col) === 'undefined') ) {
+		return res.status(400).send('col missing');
+	}
+	if( (item === null) || (typeof(item) === 'undefined') ) {
+		return res.status(400).send('item missing');
+	}
+	if( (value === null) || (typeof(value) === 'undefined') ) {
+		return res.status(400).send('value missing');
+	}
+	
+	ibmdb.open("DATABASE=HSQ59456;HOSTNAME=dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net;UID=hsq59456;PWD=pc79w8tvh93vc2^1;PORT=50000;PROTOCOL=TCPIP",
 
+  function(err,conn) {
+
+     if (err) {
+     	res.status(400).send('db erroe: '+ err);
+     	return console.log(err);
+ 	}
+ 
+    conn.query('select '+ col+' as string from CITYDATA where '+item+'='+value,
+
+      function (err, rows) {
+
+        if (err) {
+        	return res.status(400).send({msg:'Failed'});
+    	}
+        else
+
+         {
+         	var data;
+                //loop through the rows from the resultset
+                for (var i=0; i<rows.length; i++)
+                {
+                      data += rows[i].STRING.trim();
+                }
+             var response = {value: data};
+             return res.status(200).send(response);
+         }
+
+         conn.close(function () {
+
+        console.log('done');
+
+        });
+
+      });
+
+ });
+
+
+};
+router.get('/getData', exports.getData);
 
 
 exports.router = router;

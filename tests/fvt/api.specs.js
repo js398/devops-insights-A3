@@ -6,6 +6,7 @@
     var apiv1 = require('../../routes/apiv1');
     var assert = require('chai').assert;
     var REQUEST = require('request');
+    var ibmdb = require('ibm_db');
 
     var request = REQUEST.defaults( {
         strictSSL: false

@@ -7,6 +7,7 @@
   var apiv1 = requireHelper.require('tests/coverage/instrumented/routes/apiv1');
   var assert = require('chai').assert;
   var sinon = require('sinon');
+  var ibmdb = require('ibm_db');
 
 
 
