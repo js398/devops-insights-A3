@@ -6,6 +6,7 @@ var marker2;
 var marker3;
 var marker4;
 var marker5;
+var infowindow;
 
 var ConsoleModule = angular.module('ConsoleModule', ['ngRoute']);
 

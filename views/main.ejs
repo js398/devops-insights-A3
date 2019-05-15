@@ -58,6 +58,17 @@
     			.then(function(json) {
     				var loca = new google.maps.LatLng(json.lat, json.lon);
    					marker2.setPosition(loca);
+   					var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">'+city+'</h1>'+
+            '<div id="bodyContent">'+
+            '<p>'+weather+'</p>'+
+            '</div>'+
+            '</div>';
+            var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
   				}); 
   				});			
   				
