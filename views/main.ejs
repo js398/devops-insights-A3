@@ -57,7 +57,7 @@
     			})
     			.then(function(json) {
     				var loca = new google.maps.LatLng(json.lat, json.lon);
-   					marker2.setPosition(loca);
+   					marker5.setPosition(loca);
    					var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
@@ -66,9 +66,10 @@
             '<p>'+weather+'</p>'+
             '</div>'+
             '</div>';
-            var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+            infowindow = new google.maps.InfoWindow({
+          		content: contentString
+      	  	});
+      	  	infowindow.open(map, marker5);
   				}); 
   				});			
   				
