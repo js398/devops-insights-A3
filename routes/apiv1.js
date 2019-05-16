@@ -28,7 +28,7 @@ var userinfo = {
 	"userid": db2id['username'],
 	"password": db2id['password']
 };
-var service = "/auth/tokens";
+var service = "/auth_tokens";
 var access_token;
 var jobid;
 
