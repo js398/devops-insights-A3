@@ -23,7 +23,7 @@ var db2id = {
   "username": "hsq59456",
   "ssljdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net:50001/BLUDB:sslConnection=true;"
 };
-var host = db2id['https_url'];
+var host = db2id['https_url']+'/dbapi/v3';
 var userinfo = {
 	"userid": db2id['username'],
 	"password": db2id['password']
