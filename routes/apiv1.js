@@ -143,10 +143,11 @@ exports.getData = function(req, res) {
   		headers: auth_header
     }, function(err, resp, body) {
     	if(err) {
-    		res.status(400).send('operate fail');
+    		return res.status(400).send('operate fail');
     	} else {
     		jobid = body.id;
-    		request({
+    	}
+    	request({
         url: host + service + "/" + jobid,
         method: 'GET',
         json: true,
@@ -159,6 +160,21 @@ exports.getData = function(req, res) {
     			return res.status(200).send(response);
     	}
     });
+    
+    });
+    
+    request({
+        url: host + service + "/" + jobid,
+        method: 'GET',
+        json: true,
+  		headers: auth_header
+    }, function(err, resp, body) {
+    	if(err) {
+    		res.status(400).send('operate fail');
+    	} else {
+    		console.error(body);
+    		var response = {city: body.results.rows};
+    			return res.status(200).send(response);
     	}
     });
     
@@ -168,3 +184,5 @@ router.get('/getData', exports.getData);
 
 
 exports.router = router;
+
+
