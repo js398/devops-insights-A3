@@ -2,13 +2,35 @@
 var express = require('express');
 var router = express.Router();
 var REQUEST = require('request');
-var ibmdb = require('ibm_db');
 
 var request = REQUEST.defaults( {
     strictSSL: false
 });
 
 var OPENWEATHERURL = "http://api.openweathermap.org/data/2.5/weather?appid=6b7b471967dd0851d0010cdecf28f829&units=metric";
+
+var db2id = {
+  "hostname": "dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net",
+  "password": "pc79w8tvh93vc2^1",
+  "https_url": "https://dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net",
+  "port": 50000,
+  "ssldsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net;PORT=50001;PROTOCOL=TCPIP;UID=hsq59456;PWD=pc79w8tvh93vc2^1;Security=SSL;",
+  "host": "dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net",
+  "jdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net:50000/BLUDB",
+  "uri": "db2://hsq59456:pc79w8tvh93vc2%5E1@dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net:50000/BLUDB",
+  "db": "BLUDB",
+  "dsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=hsq59456;PWD=pc79w8tvh93vc2^1;",
+  "username": "hsq59456",
+  "ssljdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net:50001/BLUDB:sslConnection=true;"
+};
+var host = db2id['https_url'];
+var userinfo = {
+	"userid": db2id['username'],
+	"password": db2id['password']
+};
+var service = "/auth/tokens";
+var access_token;
+var jobid;
 
 exports.getWeather = function(req, res) {
 	var zip = req.query.zip;
@@ -75,63 +97,66 @@ exports.getWeather2 = function(req, res) {
 };
 router.get('/getWeather2', exports.getWeather2);
 
-
+exports.getAuth = function() {
+	request.post({
+        url: host + service,
+  		form: userinfo
+    }, function(err, resp, body) {
+    	if(err) {
+    		res.status(400).send('connect fail');
+    		//console.error("Failed to send request to openweathermap.org", err);
+    	} else {
+    		access_token = body.token;
+    	}
+    });   
+};
+router.get('/getAuth', exports.getData);
 
 exports.getData = function(req, res) {
-	var col = req.query.col;
-	var item = req.query.item;
-	var value = req.query.value;
+	var id = req.query.id;
 	
-	if( (col === null) || (typeof(col) === 'undefined') ) {
-		return res.status(400).send('col missing');
-	}
-	if( (item === null) || (typeof(item) === 'undefined') ) {
-		return res.status(400).send('item missing');
-	}
-	if( (value === null) || (typeof(value) === 'undefined') ) {
-		return res.status(400).send('value missing');
+	if( (id === null) || (typeof(id) === 'undefined') ) {
+		return res.status(400).send('id missing');
 	}
 	
-	ibmdb.open("DATABASE=HSQ59456;HOSTNAME=dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net;UID=hsq59456;PWD=pc79w8tvh93vc2^1;PORT=50000;PROTOCOL=TCPIP",
-
-  function(err,conn) {
-
-     if (err) {
-     	res.status(400).send('db erroe: '+ err);
-     	return console.log(err);
- 	}
- 
-    conn.query('select '+ col+' as string from CITYDATA where '+item+'='+value,
-
-      function (err, rows) {
-
-        if (err) {
-        	return res.status(400).send({msg:'Failed'});
+    
+     var auth_header = {
+     	"Authorization" : "Bearer" + access_token
+     };
+     var sql_command = {
+     	"commands" : "select NAME from CITYDATA where ID = "+id,
+     	"limit" : 1,
+     	"separator" : ";",
+     	"stop_on_error" : "yes"
+     };
+     
+     service = "/sql_jobs";
+    
+    request.post({
+        url: host + service,
+  		form: sql_command,
+  		headers: auth_header
+    }, function(err, resp, body) {
+    	if(err) {
+    		res.status(400).send('operate fail');
+    		//console.error("Failed to send request to openweathermap.org", err);
+    	} else {
+    		jobid = body.id;
     	}
-        else
-
-         {
-         	var data;
-                //loop through the rows from the resultset
-                for (var i=0; i<rows.length; i++)
-                {
-                      data += rows[i].STRING.trim();
-                }
-             var response = {value: data};
-             return res.status(200).send(response);
-         }
-
-         conn.close(function () {
-
-        console.log('done');
-
-        });
-
-      });
-
- });
-
-
+    });
+    
+    request.get({
+        url: host + service + "/" + jobid,
+  		headers: auth_header
+    }, function(err, resp, body) {
+    	if(err) {
+    		res.status(400).send('operate fail');
+    		//console.error("Failed to send request to openweathermap.org", err);
+    	} else {
+    		var response = {city: body.results.rows[0]};
+    			return res.status(200).send(response);
+    	}
+    });
 };
 router.get('/getData', exports.getData);
 

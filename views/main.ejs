@@ -83,6 +83,26 @@
   				
    			});
 		}
+		
+		
+		
+		window.onload = function(){
+			fetch('/api/v1/getAuth') 
+.then(function() {
+    fetch('/api/v1/getData?id=1') 
+.then(function(response){
+    				if(response.status==200){
+    					return response.json();			
+					}else{
+						return Promise.reject("reject");
+					}
+    			})
+    			.then(function(json) {
+    				alert(json.city);
+  				});
+});
+
+			};
     </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUhEzqKqzBcqAhWeo4sJqW13Y7Ox9SY7Y&callback=initMap"></script>
 </html>
