@@ -148,7 +148,7 @@ exports.updateData = function(req,res) {
     	}
     });   
 };
-router.get('/getAuth', exports.getAuth);
+router.get('/updateData', exports.updateData);
 
 exports.getData = function(req, res) {
 	var id = req.query.id;
