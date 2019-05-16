@@ -97,7 +97,7 @@ exports.getWeather2 = function(req, res) {
 };
 router.get('/getWeather2', exports.getWeather2);
 
-exports.getAuth = function(res) {
+exports.getAuth = function(req,res) {
 	service = '/auth/tokens';
 	request({
         url: host + service,
@@ -108,7 +108,7 @@ exports.getAuth = function(res) {
     		res.status(400).send('connect fail');
     	} else if (resp.statusCode === 200){
     		access_token = body.token;
-    		return res.status(200).send({msg: access_token});
+    		return res.send({msg: access_token});
     	}
     });   
 };
