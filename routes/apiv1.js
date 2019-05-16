@@ -102,7 +102,7 @@ exports.getAuth = function(req,res) {
 	request({
         url: host + service,
   		method: 'POST',
-    	form: userinfo
+    	body: userinfo
     }, function(err, resp, body) {
     	if(err) {
     		res.status(400).send('connect fail');
