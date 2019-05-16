@@ -146,6 +146,7 @@ exports.getData = function(req, res) {
     		res.status(400).send('operate fail');
     	} else {
     		jobid = body.id;
+    		console.error(body);
     	}
     });
     
