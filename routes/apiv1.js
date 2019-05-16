@@ -107,7 +107,7 @@ exports.getAuth = function(res) {
     		res.status(400).send('connect fail');
     	} else {
     		//access_token = body.token;
-    		return res.status(200).send(resp);
+    		return res.status(200).send(resp.json());
     	}
     });   
 };
