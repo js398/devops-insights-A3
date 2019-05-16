@@ -99,15 +99,16 @@ router.get('/getWeather2', exports.getWeather2);
 
 exports.getAuth = function(res) {
 	service = '/auth/tokens';
-	request.post({
+	request({
         url: host + service,
-  		json: userinfo
+  		method: 'POST',
+    	form: userinfo
     }, function(err, resp, body) {
     	if(err) {
     		res.status(400).send('connect fail');
-    	} else {
-    		//access_token = body.token;
-    		return res.status(200).send({msg: resp.json()['token']});
+    	} else if (resp.statusCode === 200){
+    		access_token = body.token;
+    		return res.status(200).send({msg: access_token});
     	}
     });   
 };
