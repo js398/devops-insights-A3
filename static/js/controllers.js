@@ -26,7 +26,7 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
     $scope.zip1City = "";
     $scope.zip1Weather = "";
 
-    $scope.zip = function abc(which) {
+    $scope.zip = function(which) {
 
         var data = "";
         if(which === 1) {
