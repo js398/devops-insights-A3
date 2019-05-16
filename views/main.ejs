@@ -97,11 +97,13 @@
     			})
     			.then(function() {
 			var i;
-			for(i = 1;i<5;i++)
+			for(i = 1;i<5;i++){
 				doAdd(i);
-			};
-			});
+			}
+
 			
+			});
+			};
 	function doAdd(id){
 		
 					fetch('/api/v1/getData?id='+id) 
