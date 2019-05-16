@@ -157,7 +157,7 @@ exports.getData = function(req, res) {
     	if(err) {
     		res.status(400).send('operate fail');
     	} else {
-    		var response = {city: body.results.rows[0]};
+    		var response = {city: body};
     			return res.status(200).send(response);
     	}
     });
