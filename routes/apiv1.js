@@ -30,7 +30,7 @@ var userinfo = {
 };
 var service;
 var access_token;
-var jobid;
+var jobid = 0;
 
 exports.getWeather = function(req, res) {
 	var zip = req.query.zip;
@@ -134,7 +134,7 @@ exports.getData = function(req, res) {
      };
      
      service = "/sql_jobs";
-  function a(){  return new Promise((resolve, reject)=>{ 
+  
     request({
         url: host + service,
         method: 'POST',
@@ -149,11 +149,10 @@ exports.getData = function(req, res) {
     	}
     
     });
-    });
-}
+
 
     
-   a().then(function(){
+  	while(jobid!==0){
     request({
         url: host + service + "/" + jobid,
         method: 'GET',
@@ -164,11 +163,14 @@ exports.getData = function(req, res) {
     		res.status(400).send('operate fail');
     	} else {
     		console.error(body);
+    		jobid = 0;
     		var response = {city: body.results.rows};
     			return res.status(200).send(response);
     	}
     });
-}); 
+}
+
+
     
     
     
