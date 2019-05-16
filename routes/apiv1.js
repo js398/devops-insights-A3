@@ -98,10 +98,9 @@ exports.getWeather2 = function(req, res) {
 router.get('/getWeather2', exports.getWeather2);
 
 exports.getAuth = function(res) {
-	request({
-		method: 'POST',
+	request.post({
         url: host + service,
-  		form: userinfo
+  		json: userinfo
     }, function(err, resp, body) {
     	if(err) {
     		res.status(400).send('connect fail');
