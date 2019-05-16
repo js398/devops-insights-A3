@@ -105,8 +105,8 @@
 					}
     			})
     			.then(function(json) {
-					alert(json.results.rows);
-					alert(typeof(json.results.rows));
+					alert(json.results['0'].rows[0]);
+					alert(typeof(json.results['0'].rows));
   				})
   				})
 
