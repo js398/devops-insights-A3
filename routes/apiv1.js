@@ -25,10 +25,10 @@ var db2id = {
 };
 var host = db2id['https_url']+'/dbapi/v3';
 var userinfo = {
-	"userid": db2id['username'],
-	"password": db2id['password']
+	"userid": "hsq59456",
+  	"password": "pc79w8tvh93vc2^1"
 };
-var service = "/auth_tokens";
+var service;
 var access_token;
 var jobid;
 
@@ -98,6 +98,7 @@ exports.getWeather2 = function(req, res) {
 router.get('/getWeather2', exports.getWeather2);
 
 exports.getAuth = function(res) {
+	service = '/auth/tokens';
 	request.post({
         url: host + service,
   		json: userinfo
