@@ -83,7 +83,7 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
         }
     };
     
-    $scope.dosearch = function(data) {
+    $scope.dosearch = function(which,data) {
             $http({
                 method: "GET",
                 url: '/api/v1/getWeather?zip=' + data
