@@ -102,6 +102,7 @@ exports.getAuth = function(req,res) {
 	request({
         url: host + service,
   		method: 'POST',
+  		json: true,
     	body: userinfo
     }, function(err, resp, body) {
     	if(err) {
