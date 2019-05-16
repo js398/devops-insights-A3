@@ -134,7 +134,7 @@ exports.getData = function(req, res) {
      };
      
      service = "/sql_jobs";
-  var a =  new Promise((resolve, reject)=>{ 
+  function a(){  return new Promise((resolve, reject)=>{ 
     request({
         url: host + service,
         method: 'POST',
@@ -150,8 +150,10 @@ exports.getData = function(req, res) {
     
     });
     });
+}
+
     
-   a.then(function(){
+   a().then(function(){
     request({
         url: host + service + "/" + jobid,
         method: 'GET',
