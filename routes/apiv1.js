@@ -30,7 +30,8 @@ var userinfo = {
 };
 var service;
 var access_token;
-var jobid = 0;
+var jobid;
+var auth_header;
 
 exports.getWeather = function(req, res) {
 	var zip = req.query.zip;
@@ -123,7 +124,7 @@ exports.getData = function(req, res) {
 	}
 	
     
-     var auth_header = {
+      auth_header = {
      	"Authorization" : "Bearer" + access_token
      };
      var sql_command = {
@@ -146,13 +147,26 @@ exports.getData = function(req, res) {
     		return res.status(400).send('operate fail');
     	} else {
     		jobid = body.id;
+    		a(res);
     	}
     
     });
 
 
     
-    request({
+    
+    
+    
+    
+};
+router.get('/getData', exports.getData);
+
+
+exports.router = router;
+
+
+function a(res){
+	request({
         url: host + service + "/" + jobid,
         method: 'GET',
         json: true,
@@ -166,13 +180,7 @@ exports.getData = function(req, res) {
     			return res.status(200).send(response);
     	}
     });
-    
-    
-    
-};
-router.get('/getData', exports.getData);
-
-
-exports.router = router;
+	
+}
 
 
