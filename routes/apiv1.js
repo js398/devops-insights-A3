@@ -108,7 +108,7 @@ exports.getAuth = function(req,res) {
     		res.status(400).send('connect fail');
     	} else if (resp.statusCode === 200){
     		access_token = body.token;
-    		return res.send({msg: access_token});
+    		return res.send({msg: resp.json()['token']});
     	}
     });   
 };
