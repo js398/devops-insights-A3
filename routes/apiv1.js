@@ -134,7 +134,7 @@ exports.getData = function(req, res) {
      };
      
      service = "/sql_jobs";
-    
+  var a =  new Promise((resolve, reject)=>{ 
     request({
         url: host + service,
         method: 'POST',
@@ -147,22 +147,11 @@ exports.getData = function(req, res) {
     	} else {
     		jobid = body.id;
     	}
-    	request({
-        url: host + service + "/" + jobid,
-        method: 'GET',
-        json: true,
-  		headers: auth_header
-    }, function(err, resp, body) {
-    	if(err) {
-    		res.status(400).send('operate fail');
-    	} else {
-    		var response = {city: body.results.rows};
-    			return res.status(200).send(response);
-    	}
-    });
     
     });
+    });
     
+   a.then(function(){
     request({
         url: host + service + "/" + jobid,
         method: 'GET',
@@ -177,6 +166,8 @@ exports.getData = function(req, res) {
     			return res.status(200).send(response);
     	}
     });
+}); 
+    
     
     
 };
