@@ -98,7 +98,8 @@ exports.getWeather2 = function(req, res) {
 router.get('/getWeather2', exports.getWeather2);
 
 exports.getAuth = function(res) {
-	request.post({
+	request({
+		method: 'POST',
         url: host + service,
   		form: userinfo
     }, function(err, resp, body) {
