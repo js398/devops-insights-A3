@@ -152,7 +152,8 @@ exports.getData = function(req, res) {
 
 
     
-  	while(jobid!==0){
+  	while(true){
+  		if(jobid!==0){
     request({
         url: host + service + "/" + jobid,
         method: 'GET',
@@ -163,11 +164,14 @@ exports.getData = function(req, res) {
     		res.status(400).send('operate fail');
     	} else {
     		console.error(body);
-    		jobid = 0;
     		var response = {city: body.results.rows};
     			return res.status(200).send(response);
     	}
     });
+    jobid = 0;
+    break;
+}
+
 }
 
 
