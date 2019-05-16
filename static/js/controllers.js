@@ -49,21 +49,40 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
                     $scope.zip1Weather = response.data.weather;
                     uluru = new google.maps.LatLng(response.data.lat, response.data.lon);
    					marker1.setPosition(uluru);
+   					$http({
+                method: "GET",
+                url: '/api/v1/updateData?id=1&name=' + data
+            });
                 } else if(which === 2) {
                     $scope.zip2City = response.data.city;
                     $scope.zip2Weather = response.data.weather;
                     uluru = new google.maps.LatLng(response.data.lat, response.data.lon);
    					marker2.setPosition(uluru);
+   					$http({
+                method: "GET",
+                url: '/api/v1/updateData?id=2&name=' + data
+            });
+
                 } else if(which === 3) {
                     $scope.zip3City = response.data.city;
                     $scope.zip3Weather = response.data.weather;
                     uluru = new google.maps.LatLng(response.data.lat, response.data.lon);
    					marker3.setPosition(uluru);
+   					$http({
+                method: "GET",
+                url: '/api/v1/updateData?id=3&name=' + data
+            });
+
                 } else if(which === 4) {
                     $scope.zip4City = response.data.city;
                     $scope.zip4Weather = response.data.weather;
                     uluru = new google.maps.LatLng(response.data.lat, response.data.lon);
    					marker4.setPosition(uluru);
+   					$http({
+                method: "GET",
+                url: '/api/v1/updateData?id=4&name=' + data
+            });
+
                 } 
             });
         } else {

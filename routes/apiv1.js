@@ -116,6 +116,40 @@ exports.getAuth = function(req,res) {
 };
 router.get('/getAuth', exports.getAuth);
 
+exports.updateData = function(req,res) {
+	var id = req.query.id;
+	var name = req.query.name;
+	if( (id === null) || (typeof(id) === 'undefined') ) {
+		return res.status(400).send('id missing');
+	}
+	if( (name === null) || (typeof(name) === 'undefined') ) {
+		return res.status(400).send('name missing');
+	}
+	
+	var sql_command = {
+     	"commands" : "UPDATE CITYDATA SET NAME = '"+name+"' WHERE ID = "+id,
+     	"limit" : 1,
+     	"separator" : ";",
+     	"stop_on_error" : "yes"
+     };
+     
+	service = '/sql_jobs';
+	request({
+        url: host + service,
+  		method: 'POST',
+  		json: true,
+    	body: sql_command,
+    	headers: auth_header
+    }, function(err, resp, body) {
+    	if(err) {
+    		res.status(400).send('connect fail');
+    	} else if (resp.statusCode === 200){
+    		return res.send({id: body.id});
+    	}
+    });   
+};
+router.get('/getAuth', exports.getAuth);
+
 exports.getData = function(req, res) {
 	var id = req.query.id;
 	
