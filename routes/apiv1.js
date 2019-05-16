@@ -100,14 +100,13 @@ router.get('/getWeather2', exports.getWeather2);
 exports.getAuth = function(res) {
 	request.post({
         url: host + service,
-        body: userinfo,
-  		json: true
+  		json: userinfo
     }, function(err, resp, body) {
     	if(err) {
     		res.status(400).send('connect fail');
     	} else {
     		//access_token = body.token;
-    		return res.status(200).send(resp.json());
+    		return res.status(200).send({msg: resp.json()['token']});
     	}
     });   
 };

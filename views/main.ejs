@@ -88,9 +88,7 @@
 		
 		window.onload = function(){
 			fetch('/api/v1/getAuth') 
-.then(function() {
-    fetch('/api/v1/getData?id=1') 
-.then(function(response){
+				.then(function(response){
     				if(response.status==200){
     					return response.json();			
 					}else{
@@ -98,9 +96,8 @@
 					}
     			})
     			.then(function(json) {
-    				alert(json.city);
-  				});
-});
+					alert(json.message);
+  				})
 
 			};
     </script>
