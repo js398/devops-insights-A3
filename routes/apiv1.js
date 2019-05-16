@@ -146,19 +146,19 @@ exports.getData = function(req, res) {
     		res.status(400).send('operate fail');
     	} else {
     		jobid = body.id;
-    		console.error(body);
     	}
     });
     
     request({
         url: host + service + "/" + jobid,
         method: 'GET',
+        json: true,
   		headers: auth_header
     }, function(err, resp, body) {
     	if(err) {
     		res.status(400).send('operate fail');
     	} else {
-    		var response = {city: body};
+    		var response = {city: body.results.rows[0]};
     			return res.status(200).send(response);
     	}
     });
