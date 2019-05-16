@@ -110,7 +110,7 @@ exports.getAuth = function() {
     	}
     });   
 };
-router.get('/getAuth', exports.getData);
+router.get('/getAuth', exports.getAuth);
 
 exports.getData = function(req, res) {
 	var id = req.query.id;
