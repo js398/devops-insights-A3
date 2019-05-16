@@ -152,8 +152,6 @@ exports.getData = function(req, res) {
 
 
     
-  	while(true){
-  		if(jobid!==0){
     request({
         url: host + service + "/" + jobid,
         method: 'GET',
@@ -168,13 +166,6 @@ exports.getData = function(req, res) {
     			return res.status(200).send(response);
     	}
     });
-    jobid = 0;
-    break;
-}
-
-}
-
-
     
     
     
