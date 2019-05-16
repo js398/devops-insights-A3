@@ -97,16 +97,16 @@ exports.getWeather2 = function(req, res) {
 };
 router.get('/getWeather2', exports.getWeather2);
 
-exports.getAuth = function() {
+exports.getAuth = function(res) {
 	request.post({
         url: host + service,
   		form: userinfo
     }, function(err, resp, body) {
     	if(err) {
     		res.status(400).send('connect fail');
-    		//console.error("Failed to send request to openweathermap.org", err);
     	} else {
     		access_token = body.token;
+    		return res.status(200).send(access_token);
     	}
     });   
 };
