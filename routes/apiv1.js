@@ -135,26 +135,27 @@ exports.getData = function(req, res) {
      
      service = "/sql_jobs";
     
-    request.post({
+    request({
         url: host + service,
-  		form: sql_command,
+        method: 'POST',
+  		body: sql_command,
+  		json: true,
   		headers: auth_header
     }, function(err, resp, body) {
     	if(err) {
     		res.status(400).send('operate fail');
-    		//console.error("Failed to send request to openweathermap.org", err);
     	} else {
     		jobid = body.id;
     	}
     });
     
-    request.get({
+    request({
         url: host + service + "/" + jobid,
+        method: 'GET',
   		headers: auth_header
     }, function(err, resp, body) {
     	if(err) {
     		res.status(400).send('operate fail');
-    		//console.error("Failed to send request to openweathermap.org", err);
     	} else {
     		var response = {city: body.results.rows[0]};
     			return res.status(200).send(response);
