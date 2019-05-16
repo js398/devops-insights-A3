@@ -112,6 +112,7 @@
     			})
     			.then(function(json) {
 					document.getElementById("zip"+id).value = json.results['0'].rows[0];
+					angular.element(this).scope().zip(id);
   				});
 		
 	}
