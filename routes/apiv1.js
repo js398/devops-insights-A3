@@ -165,7 +165,6 @@ function a(res){
     	if(err) {
     		res.status(400).send('operate fail');
     	} else {
-    		console.error(body);
     			return res.status(200).send(body);
     	}
     });

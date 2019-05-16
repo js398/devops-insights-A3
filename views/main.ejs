@@ -87,13 +87,7 @@
 		
 		
 		window.onload = function(){
-			var i;
-			for(i = 1;i<5;i++)
-				doAdd(i);
-			};
-			
-	function doAdd(id){
-		fetch('/api/v1/getAuth') 
+			fetch('/api/v1/getAuth') 
 				.then(function(response){
     				if(response.status==200){
     					return response.json();			
@@ -102,19 +96,22 @@
 					}
     			})
     			.then(function() {
+			var i;
+			for(i = 1;i<5;i++)
+				doAdd(i);
+			};
+			});
+			
+	function doAdd(id){
+		
 					fetch('/api/v1/getData?id='+id) 
 				.then(function(response){
-    				if(response.status==200){
     					return response.json();			
-					}else{
-						return Promise.reject("reject");
-					}
     			})
     			.then(function(json) {
-					//alert(json.results['0'].rows[0]);
 					document.getElementById("zip"+id).value = json.results['0'].rows[0];
-  				})
-  				})
+					zip(id);
+  				});
 		
 	}
     </script>
