@@ -110,7 +110,7 @@ exports.getAuth = function(req,res) {
     		res.status(400).send('connect fail');
     	} else{
     		access_token = body.token;
-    		return res.send({data: body.token});
+    		return res.status(200).send({data: body.token});
     	}
     });   
 };
@@ -144,7 +144,7 @@ exports.updateData = function(req,res) {
     	if(err) {
     		res.status(400).send('connect fail');
     	} else{
-    		return res.send({id: body.id});
+    		return res.status(200).send({id: body.id});
     	}
     });   
 };
