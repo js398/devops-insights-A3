@@ -222,4 +222,121 @@
     });
   });
   
+  describe('getAuth', function() {
+
+    it('request for a Auth token', function() {
+      reqMock = {
+        query: {
+        	
+        }
+      };
+
+      var body = {
+        data: 'eyJ0eXAiOiJKV1QiLCJhbGwS7viwFXPerXZJflTVxXQh96pa4c'   		
+      };
+      	
+
+      var request = function( obj, callback ){
+        callback(null, null, body);
+      };
+
+      apiv1.__set__("request", request);
+
+      apiv1.getAuth(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(200), 'Unexpected response:' + resMock.status.lastCall.args);
+      assert(resMock.send.lastCall.args[0].data === 'eyJ0eXAiOiJKV1QiLCJhbGwS7viwFXPerXZJflTVxXQh96pa4c', 'Unexpected response:' + resMock.send.lastCall.args[0].city);
+    });
+  });
+  
+  describe('getData', function() {
+  	
+  	it('with without id data', function() {
+      reqMock = {
+        query: {
+
+        }
+      };
+
+      apiv1.getData(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(400), 'Unexpected status code:' + resMock.status.lastCall.args);
+    });
+
+    it('with vaild id data', function() {
+      reqMock = {
+        query: {
+        	id: 1
+        }
+      };
+
+      var body = {
+        data: 'eyJ0eXAiOiJKV1QiLCJhbGwS7viwFXPerXZJflTVxXQh96pa4c'   		
+      };
+      	
+
+      var request = function( obj, callback ){
+        callback(null, null, body);
+      };
+
+      apiv1.__set__("request", request);
+
+      apiv1.getData(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(200), 'Unexpected response:' + resMock.status.lastCall.args);
+    });
+  });
+  
+  describe('updateData', function() {
+  	
+  	it('with without id data', function() {
+      reqMock = {
+        query: {
+			name: 'auckland'
+        }
+      };
+
+      apiv1.updateData(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(400), 'Unexpected status code:' + resMock.status.lastCall.args);
+    });
+    
+    it('with without name data', function() {
+      reqMock = {
+        query: {
+			id: 1
+        }
+      };
+
+      apiv1.updateData(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(400), 'Unexpected status code:' + resMock.status.lastCall.args);
+    });
+
+    it('with vaild id/name data', function() {
+      reqMock = {
+        query: {
+        	id: 1,
+        	name: 'Auckland'
+        }
+      };
+
+      var body = {
+        id: 'eyJ0eXAiOiJKV1QiLCJhbGwS7viwFXPerXZJflTVxXQh96pa4c'   		
+      };
+      	
+
+      var request = function( obj, callback ){
+        callback(null, null, body);
+      };
+
+      apiv1.__set__("request", request);
+
+      apiv1.updateData(reqMock, resMock);
+
+      assert(resMock.status.lastCall.calledWith(200), 'Unexpected response:' + resMock.status.lastCall.args);
+      assert(resMock.send.lastCall.args[0].id === 'eyJ0eXAiOiJKV1QiLCJhbGwS7viwFXPerXZJflTVxXQh96pa4c', 'Unexpected response:' + resMock.send.lastCall.args[0].city);
+    });
+  });
+  
 }());
